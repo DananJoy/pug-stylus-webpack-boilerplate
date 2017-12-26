@@ -3,7 +3,7 @@ ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     entry: {
-        app: './src/assets/main.js'
+        app: './src/main.js'
     },
     output: {
         path: __dirname + '/dist',
@@ -11,14 +11,6 @@ module.exports = {
     },
     module: {
         rules: [
-            // {
-            //     test: /\.styl$/i,
-            //     use: [
-            //         'style-loader',
-            //         'css-loader',
-            //         'stylus-loader'
-            //     ]
-            // }
             { 
                 test: [ /\.styl$/, /\.css$/ ],
                 use: ExtractTextPlugin.extract({
@@ -36,6 +28,13 @@ module.exports = {
                     ],
                     publicPath: __dirname + '/dist'
                 })
+            },
+            {
+                test: /\.pug$/,
+                use: [
+                    'html-loader',
+                    'pug-html-loader'
+                ]
             }
         ]
     },
@@ -48,10 +47,9 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'Hello Bitches',
-            template: './src/index.html',
+            title: 'Pug + Stylus Template',
+            template: './src/index.pug',
             filename: './index.html',
-            excludeChunks: ['other'],
             minify: {
                 collapseWhitespace: false
             },
